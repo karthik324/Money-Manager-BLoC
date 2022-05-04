@@ -1,6 +1,6 @@
 # money_manager_bloc
 
-A new Flutter project.
+Converted my first project to BLoC
 
 ## Getting Started
 
