@@ -19,6 +19,7 @@ class TransactionCubit extends Cubit<TransactionState> {
   void addTransactionsListUpdated(Box<Transactions> box, Transactions trans) {
     DbFunctions.addTransaction(trans);
     emit(AllTransactionsState(transactions: box.values.toList()));
+    emit(TransactionsState2());
   }
 
   void editTransactionsListUpdated(
@@ -69,8 +70,7 @@ class TransactionCubit extends Cubit<TransactionState> {
     return date;
   }
 
-  String versionName(String version) {
+  void versionName(String version) {
     emit(VersionName(version: version));
-    return version;
   }
 }

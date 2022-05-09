@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager_bloc/db/models/db_model.dart';
-import 'package:money_manager_bloc/logic/bloc/search_bloc.dart';
+import 'package:money_manager_bloc/logic/bloc/bloc_search/search_bloc.dart';
 import 'package:money_manager_bloc/logic/cubit/cubit_transactions/transaction_cubit.dart';
 import 'package:money_manager_bloc/logic/cubit/search_icon_cubit/icon_cubit.dart';
 import 'package:money_manager_bloc/presentations/constants/constants.dart';
@@ -27,12 +27,19 @@ class MonthlyScreen extends StatelessWidget {
   MonthlyScreen({Key? key}) : super(key: key);
 
   Box<Categories> categories = Hive.box<Categories>(categoryBox);
+
   Box<Transactions> transactions = Hive.box<Transactions>(transactionBox);
+
   IconData? myIcon;
+
   Widget? myFields;
+
   final String searchInput = "";
+
   double? totalIncome;
+
   double? totalExpense;
+
   DateTime thisMonth = DateTime.now();
 
   @override
@@ -56,6 +63,9 @@ class MonthlyScreen extends StatelessWidget {
                         thisMonth = context
                             .read<TransactionCubit>()
                             .dateChangeDecrement(thisMonth);
+                        context.read<SearchBloc>().add(
+                              EnterInputEvent(searchInput: ''),
+                            );
                       },
                       icon: const Icon(
                         Icons.arrow_back_ios,
@@ -68,6 +78,9 @@ class MonthlyScreen extends StatelessWidget {
                         thisMonth = context
                             .read<TransactionCubit>()
                             .dateChangeIncrement(thisMonth);
+                        context.read<SearchBloc>().add(
+                              EnterInputEvent(searchInput: ''),
+                            );
                       },
                       icon: const Icon(
                         Icons.arrow_forward_ios,
@@ -239,8 +252,8 @@ class MonthlyScreen extends StatelessWidget {
                               ),
                               BlocBuilder<SearchBloc, SearchState>(
                                 builder: (context, state) {
-                                  final traList =
-                                      state.props[0] as List<Transactions>;
+                                  final traList = monthType(
+                                      transactions.values.toList(), thisMonth);
                                   return traList.isEmpty
                                       ? Padding(
                                           padding: EdgeInsets.only(

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager_bloc/db/models/db_model.dart';
-import 'package:money_manager_bloc/logic/bloc/search_bloc.dart';
+import 'package:money_manager_bloc/logic/bloc/bloc_search/search_bloc.dart';
 import 'package:money_manager_bloc/logic/cubit/cubit_reminder/reminder_cubit.dart';
 import 'package:money_manager_bloc/logic/cubit/cubit_transactions/transaction_cubit.dart';
 import 'package:money_manager_bloc/logic/cubit/search_icon_cubit/icon_cubit.dart';
@@ -412,6 +412,12 @@ class AllTransactions extends StatelessWidget {
                                                         .deleteTransactionsListUpdated(
                                                           transactions,
                                                           traList[index].key,
+                                                        );
+                                                    context
+                                                        .read<SearchBloc>()
+                                                        .add(
+                                                          EnterInputEvent(
+                                                              searchInput: ''),
                                                         );
                                                     Navigator.pop(context);
                                                   },

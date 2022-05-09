@@ -18,6 +18,11 @@ class AllTransactionsState extends TransactionState {
   List<Object?> get props => [transactions];
 }
 
+class TransactionsState2 extends TransactionState {
+  @override
+  List<Object?> get props => [];
+}
+
 class DateChanger extends TransactionState {
   final DateTime dateTime;
   const DateChanger({

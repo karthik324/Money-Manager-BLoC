@@ -13,3 +13,11 @@ class SearchResultState extends SearchState {
   @override
   List<Object?> get props => [transactions];
 }
+
+class SearchResultState1 extends SearchState {
+  final List<Transactions> transactions;
+  const SearchResultState1({required this.transactions});
+
+  @override
+  List<Object?> get props => [transactions];
+}

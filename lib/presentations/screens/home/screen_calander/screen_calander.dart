@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager_bloc/db/models/db_model.dart';
-import 'package:money_manager_bloc/logic/bloc/search_bloc.dart';
+import 'package:money_manager_bloc/logic/bloc/bloc_search/search_bloc.dart';
 import 'package:money_manager_bloc/logic/cubit/cubit_transactions/transaction_cubit.dart';
 import 'package:money_manager_bloc/logic/cubit/search_icon_cubit/icon_cubit.dart';
 import 'package:money_manager_bloc/presentations/constants/constants.dart';
@@ -282,8 +282,11 @@ class CalanderScreen extends StatelessWidget {
                             ),
                             BlocBuilder<SearchBloc, SearchState>(
                               builder: (context, state) {
-                                final traList =
-                                    state.props[0] as List<Transactions>;
+                                final traList = dateRange(
+                                  transactions.values.toList(),
+                                  startDate,
+                                  endDate,
+                                );
                                 return traList.isEmpty
                                     ? Padding(
                                         padding: EdgeInsets.only(

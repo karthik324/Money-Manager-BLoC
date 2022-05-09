@@ -22,8 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> init() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    version = context.read<TransactionCubit>().versionName(packageInfo.version);
+    version = packageInfo.version;
   }
 
   Box<Categories> categories = Hive.box<Categories>(categoryBox);
@@ -36,7 +35,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void initState() {
-    init();
+    init().then((value) {
+      context.read<TransactionCubit>().versionName(version!);
+    });
+
     super.initState();
   }
 

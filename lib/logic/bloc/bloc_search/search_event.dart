@@ -11,7 +11,7 @@ class EnterInputEvent extends SearchEvent {
     required this.searchInput,
   });
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [searchInput];
 }
 
 class ClearInputEvent extends SearchEvent {

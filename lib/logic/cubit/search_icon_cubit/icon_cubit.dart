@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money_manager_bloc/logic/bloc/search_bloc.dart';
+import 'package:money_manager_bloc/logic/bloc/bloc_search/search_bloc.dart';
 
 part 'icon_state.dart';
 
@@ -11,7 +11,6 @@ class IconCubit extends Cubit<IconState> {
           const IconChange(
               myField: Text('All Transactions'), iconData: Icons.search),
         );
-
   IconData changeIcon(
       IconData iconData, String searchInput, BuildContext context) {
     double mediaQueryHeight = MediaQuery.of(context).size.height;
@@ -25,7 +24,6 @@ class IconCubit extends Cubit<IconState> {
             height: mediaQueryHeight * 0.07,
             child: TextField(
               onChanged: (value) {
-                // searchInput = value;
                 context.read<SearchBloc>().add(
                       EnterInputEvent(searchInput: value),
                     );
